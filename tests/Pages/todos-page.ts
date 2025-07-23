@@ -12,7 +12,6 @@ export class TodosPage {
     readonly completedTasks: Locator
     readonly activeTasks: Locator
     readonly clearCompletedButton: Locator
-    readonly footerNavigation: Locator
 
     constructor(page: Page) {
         this.page = page;
@@ -25,8 +24,7 @@ export class TodosPage {
         this.allTasks = page.getByRole('link', { name: 'All' });
         this.completedTasks = page.getByRole('link', { name: 'Completed' })
         this.activeTasks = page.getByRole('link', { name: 'Active' })
-        this.clearCompletedButton = page.getByRole('link', { name: 'Clear completed' })
-        this.footerNavigation = page.getByTestId('footer-navigation');
+        this.clearCompletedButton = page.locator('.clear-completed')
     }
 
     async countTodosItems(): Promise<number> {
