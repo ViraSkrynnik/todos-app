@@ -31,4 +31,30 @@ export class TodosPage {
         const todosItemsLabels = this.page.getByTestId('todo-item-label');
         return await todosItemsLabels.count();
     }
+
+    async createTask(taskTitle: string) {
+        await this.input.fill(taskTitle);
+        await this.input.press('Enter');
+    }
+
+    getTaskByIndex(index: number) {
+        return this.itemLabel.nth(0);
+    }
+
+    async deleteTask(taskTitle: string) {
+        const taskItem = this.page.getByTestId('todo-item').filter({ hasText: taskTitle });
+        await taskItem.hover();
+        const deleteButton = taskItem.getByTestId('todo-item-button');
+        await deleteButton.click();
+    }
+
+    getTaskByTitle(taskTitle: string) {
+        return this.page.getByTestId('todo-item').filter({ hasText: taskTitle });
+    }
+
+    async completeTask(taskTitle: string) {
+        const task = this.getTaskByTitle(taskTitle);
+        const firstCheckbox = task.getByTestId('todo-item-toggle');
+        await firstCheckbox.click();
+    }
 }
